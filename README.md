@@ -2,7 +2,8 @@
  
 NYAN TAP output ~~inspired by~~ blatantly copied from Mocha's [nyan reporterr](https://github.com/visionmedia/mocha/blob/master/lib/reporters/nyan.js) with much tap material taken from Scott Corgan's awesome [tap-spec reporter](https://github.com/scottcorgan/tap-spec).  Very rough at the moment.
 
- 
+![screen shot](http://i.imgur.com/T1eH156.png)
+
 ## Install
  
 ```
