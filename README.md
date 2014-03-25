@@ -1,13 +1,13 @@
-# tap-spec
+# tap-nyan
  
-Formatted TAP output like Mocha's spec reporter
+NYAN TAP output ~~like~~ coppied from Mocha's nyan reporter
 
 ![Output screenshot](http://i.imgur.com/3yh5prr.png)
  
 ## Install
  
 ```
-npm install tap-spec --save-dev
+npm install tap-nyan --save-dev
 ```
  
 ## Usage
@@ -18,7 +18,7 @@ npm install tap-spec --save-dev
 {
   "name": "module-name",
   "scripts": {
-    "test": "node ./test/tap-test.js | tap-spec"
+    "test": "node ./test/tap-test.js | tnyan"
   }
 }
 ```
@@ -28,12 +28,12 @@ Then run with `npm test`
 **Terminal**
 
 ```
-tape test/index.js | node_modules/.bin/tap-spec
+node test/test.js | node_modules/.bin/tnyan
 ``` 
 
 **Testling**
 
 ```
 npm install testling -g
-testling test/index.js | node_modules/.bin/tap-spec
+testling test/test.js | node_modules/.bin/tnyan
 ```

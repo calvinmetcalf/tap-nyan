@@ -4,42 +4,34 @@ var through = require('through2');
 var parser = require('tap-parser');
 var duplexer = require('duplexer');
 var chalk = require('chalk');
-
 var out = through();
 var tap = parser();
 var dup = duplexer(tap, out);
 var currentTestName = '';
 var errors = [];
-
-out.push('\n');
-
+var Nyan = require('./nyan');
+var nyan = new Nyan(out);
+nyan.cursor.hide();
 tap.on('comment', function (comment) {
   currentTestName = comment;
-  
-  if (/^tests\s+[1-9]/gi.test(comment)) comment = chalk.white(comment);
-  else if (/^pass\s+[1-9]/gi.test(comment)) comment = chalk.green(comment);
-  else if (/^fail\s+[1-9]/gi.test(comment)) comment = chalk.red(comment);
-  else if (/^ok$/gi.test(comment)) return;
-  else out.push('\n');
-  
-  out.push('  ' + comment + '\n');
 });
-
 tap.on('assert', function (res) {
-  var output = (res.ok)
-    ? chalk.green('\u2713')
-    : chalk.red('✗');
-  
-  if (!res.ok) errors.push(currentTestName + ' ' + res.name);
-  
-  out.push('    ' + output + ' ' + chalk.gray(res.name) + '\n');
+  if (res.ok) {
+    nyan.pass();
+  } else {
+    nyan.fail();
+    errors.push(currentTestName + ': ' + res.name);
+  }
+
 });
 
-tap.on('extra', function (extra) {
-  out.push('   ' + extra + '\n');
-});
+// tap.on('extra', function (extra) {
+//   out.push('   ' + extra + '\n');
+// });
 
 tap.on('results', function (res) {
+  nyan.cursor.show();
+  out.push('\n\n\n\n');
   if (errors.length) {
     var past = (errors.length == 1) ? 'was' : 'were';
     var plural = (errors.length == 1) ? 'failure' : 'failures';
