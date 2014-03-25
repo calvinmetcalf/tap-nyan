@@ -1,8 +1,7 @@
 # tap-nyan
  
-NYAN TAP output ~~like~~ coppied from Mocha's nyan reporter
+NYAN TAP output ~~inspired by~~ blatantly copied from Mocha's [nyan reporterr](https://github.com/visionmedia/mocha/blob/master/lib/reporters/nyan.js) with much tap material taken from Scott Corgan's awesome [tap-spec reporter](https://github.com/scottcorgan/tap-spec).  Very rough at the moment.
 
-![Output screenshot](http://i.imgur.com/3yh5prr.png)
  
 ## Install
  
