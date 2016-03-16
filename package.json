@@ -21,16 +21,16 @@
     "url": "https://github.com/calvinmetcalf/tap-nyan/issues"
   },
   "dependencies": {
-    "chalk": "~0.4.0",
-    "through2": "~0.2.3",
-    "tap-parser": "~0.4.1",
-    "duplexer": "~0.1.1"
+    "chalk": "^1.1.1",
+    "duplexer": "~0.1.1",
+    "tap-parser": "^1.2.2",
+    "through2": "^2.0.1"
   },
   "bin": {
     "tnyan": "bin/cmd.js",
     "tap-nyan": "bin/cmd.js"
   },
   "devDependencies": {
-    "tape": "^2.12.0"
+    "tape": "^4.5.1"
   }
 }
