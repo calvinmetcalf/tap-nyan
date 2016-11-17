@@ -1,12 +1,12 @@
-var through = require('through2');
+var PassThrough = require('stream').PassThrough;
 var parser = require('tap-parser');
-var duplexer = require('duplexer');
+var duplexer = require('duplexer2');
 var chalk = require('chalk');
 
 var Nyan = require('./bin/nyan');
 
 module.exports = function NyanReporter() {
-  var out = through();
+  var out = PassThrough();
   var tap = parser();
   var stream = duplexer(tap, out);
   var nyan = new Nyan(out);

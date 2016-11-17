@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var tapNyan = require('../')();
+var tapNyan = require('../');
 
 process.stdin
   .pipe(tapNyan())
