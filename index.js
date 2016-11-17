@@ -45,7 +45,7 @@ module.exports = function NyanReporter() {
       return markFailed();
     }
 
-    if(errors.length) {
+    if(errors.length || !res.ok) {
       markFailed();
 
       var past = (errors.length === 1) ? 'was' : 'were';

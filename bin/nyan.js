@@ -5,68 +5,78 @@ var windowWidth = isatty
       ? process.stdout.getWindowSize(1)[0]
       : tty.getWindowSize()[1]
     : 75;
+
+var args = process.argv.slice(2);
+var ansi = false;
+for(var i = 0; i < args.length && !ansi; i++) {
+  if(args[i] === '--ansi') { ansi = true; }
+}
+
 module.exports = NyanCat;
+
 function NyanCat(out) {
   this.out = out;
-  this.stats = { suites: 0, tests: 0, passes: 0, pending: 0, failures: 0 }
-  var self = this
-    , stats = this.stats
-    , width = windowWidth * .75 | 0
-    , rainbowColors = this.rainbowColors = self.generateColors()
-    , colorIndex = this.colorIndex = 0
-    , numerOfLines = this.numberOfLines = 4
-    , trajectories = this.trajectories = [[], [], [], []]
-    , nyanCatWidth = this.nyanCatWidth = 11
-    , trajectoryWidthMax = this.trajectoryWidthMax = (width - nyanCatWidth)
-    , scoreboardWidth = this.scoreboardWidth = 5
-    , tick = this.tick = 0
-    , n = 0;
-    this.cursor = {
-      hide: function(){
-        isatty && process.stdout.write('\u001b[?25l');
-      },
+  this.stats = { suites: 0, tests: 0, passes: 0, pending: 0, failures: 0 };
+  var self = this;
+  var width = windowWidth * 0.75 | 0;
 
-      show: function(){
-        isatty && process.stdout.write('\u001b[?25h');
-      },
+  this.stats;
+  this.rainbowColors = self.generateColors();
+  this.colorIndex = 0;
+  this.numberOfLines = 4;
+  this.trajectories = [[], [], [], []];
+  this.nyanCatWidth = 11;
+  this.trajectoryWidthMax = (width - this.nyanCatWidth);
+  this.scoreboardWidth = 5;
+  this.tick = 0;
 
-      deleteLine: function(){
-        isatty && process.stdout.write('\u001b[2K');
-      },
+  this.cursor = {
+    hide: function() {
+      isatty && process.stdout.write('\u001b[?25l');
+    },
 
-      beginningOfLine: function(){
-        isatty && process.stdout.write('\u001b[0G');
-      },
+    show: function() {
+      isatty && process.stdout.write('\u001b[?25h');
+    },
 
-      CR: function(){
-        if (isatty) {
-          cursor.deleteLine();
-          cursor.beginningOfLine();
-        } else {
-          process.stdout.write('\r');
-        }
+    deleteLine: function() {
+      isatty && process.stdout.write('\u001b[2K');
+    },
+
+    beginningOfLine: function() {
+      isatty && process.stdout.write('\u001b[0G');
+    },
+
+    CR: function() {
+      if(isatty) {
+        this.deleteLine();
+        this.beginningOfLine();
+      } else {
+        process.stdout.write('\r');
       }
-    };
-    this.colors = {
-      'pass': 90
-    , 'fail': 31
-    , 'bright pass': 92
-    , 'bright fail': 91
-    , 'bright yellow': 93
-    , 'pending': 36
-    , 'suite': 0
-    , 'error title': 0
-    , 'error message': 31
-    , 'error stack': 90
-    , 'checkmark': 32
-    , 'fast': 90
-    , 'medium': 33
-    , 'slow': 31
-    , 'green': 32
-    , 'light': 90
-    , 'diff gutter': 90
-    , 'diff added': 42
-    , 'diff removed': 41
+    }
+  };
+
+  this.colors = {
+    'pass': 90,
+    'fail': 31,
+    'bright pass': 92,
+    'bright fail': 91,
+    'bright yellow': 93,
+    'pending': 36,
+    'suite': 0,
+    'error title': 0,
+    'error message': 31,
+    'error stack': 90,
+    'checkmark': 32,
+    'fast': 90,
+    'medium': 33,
+    'slow': 31,
+    'green': 32,
+    'light': 90,
+    'diff gutter': 90,
+    'diff added': 42,
+    'diff removed': 41
   };
 }
 
@@ -75,15 +85,17 @@ function NyanCat(out) {
  *
  * @api private
  */
-NyanCat.prototype.pass = function(){
+NyanCat.prototype.pass = function() {
   this.stats.passes++;
   this.draw();
 };
-NyanCat.prototype.fail = function(){
+
+NyanCat.prototype.fail = function() {
   this.stats.failures++;
   this.draw();
 };
-NyanCat.prototype.draw = function(){
+
+NyanCat.prototype.draw = function() {
   this.appendRainbow();
   this.drawScoreboard();
   this.drawRainbow();
@@ -98,7 +110,7 @@ NyanCat.prototype.draw = function(){
  * @api private
  */
 
-NyanCat.prototype.drawScoreboard = function(){
+NyanCat.prototype.drawScoreboard = function() {
   var stats = this.stats;
   var colors = this.colors;
   var self = this;
@@ -122,13 +134,13 @@ NyanCat.prototype.drawScoreboard = function(){
  * @api private
  */
 
-NyanCat.prototype.appendRainbow = function(){
+NyanCat.prototype.appendRainbow = function() {
   var segment = this.tick ? '_' : '-';
   var rainbowified = this.rainbowify(segment);
 
-  for (var index = 0; index < this.numberOfLines; index++) {
+  for(var index = 0; index < this.numberOfLines; index++) {
     var trajectory = this.trajectories[index];
-    if (trajectory.length >= this.trajectoryWidthMax) trajectory.shift();
+    if(trajectory.length >= this.trajectoryWidthMax) { trajectory.shift(); }
     trajectory.push(rainbowified);
   }
 };
@@ -139,7 +151,7 @@ NyanCat.prototype.appendRainbow = function(){
  * @api private
  */
 
-NyanCat.prototype.drawRainbow = function(){
+NyanCat.prototype.drawRainbow = function() {
   var self = this;
 
   this.trajectories.forEach(function(line, index) {
@@ -175,7 +187,6 @@ NyanCat.prototype.drawNyanCat = function() {
   this.out.push(color);
   padding = self.tick ? '_' : '__';
   var tail = self.tick ? '~' : '^';
-  var face;
   this.out.push(tail + '|' + padding + this.face() + ' ');
   this.out.push('\n');
 
@@ -196,16 +207,16 @@ NyanCat.prototype.drawNyanCat = function() {
 
 NyanCat.prototype.face = function() {
   var stats = this.stats;
-  if (stats.failures) {
+  if(stats.failures) {
     return '( x .x)';
-  } else if (stats.pending) {
+  } else if(stats.pending) {
     return '( o .o)';
   } else if(stats.passes) {
     return '( ^ .^)';
   } else {
     return '( - .-)';
   }
-}
+};
 
 /**
  * Move cursor up `n`.
@@ -236,10 +247,12 @@ NyanCat.prototype.cursorDown = function(n) {
  * @api private
  */
 
-NyanCat.prototype.generateColors = function(){
+NyanCat.prototype.generateColors = function() {
+  if(ansi) { return [31, 32, 33, 34, 35, 36]; }
+
   var colors = [];
 
-  for (var i = 0; i < (6 * 7); i++) {
+  for(var i = 0; i < (6 * 7); i++) {
     var pi3 = Math.floor(Math.PI / 3);
     var n = (i * (1.0 / 6));
     var r = Math.floor(3 * Math.sin(n) + 3);
@@ -259,8 +272,9 @@ NyanCat.prototype.generateColors = function(){
  * @api private
  */
 
-NyanCat.prototype.rainbowify = function(str){
+NyanCat.prototype.rainbowify = function(str) {
   var color = this.rainbowColors[this.colorIndex % this.rainbowColors.length];
+  var effect = ansi ? '1;' : '38;5;';
   this.colorIndex += 1;
-  return '\u001b[38;5;' + color + 'm' + str + '\u001b[0m';
+  return '\u001b[' + effect + color + 'm' + str + '\u001b[0m';
 };
