@@ -4,7 +4,7 @@ NYAN TAP output ~~inspired by~~ blatantly copied from Mocha's [nyan reporter](ht
 
 ![screen shot](http://i.imgur.com/T1eH156.png)
 
-** ANSI colors **
+**ANSI colors**
 
 ![ANSI color](http://i.imgur.com/HDrCH8J.png)
 
