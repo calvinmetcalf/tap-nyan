@@ -2,8 +2,14 @@
 
 var tapNyan = require('../');
 
+var args = process.argv.slice(2);
+var ansi = false;
+for(var i = 0; i < args.length && !ansi; i++) {
+  if(args[i] === '--ansi') { ansi = true; }
+}
+
 process.stdin
-  .pipe(tapNyan())
+  .pipe(tapNyan(ansi))
   .pipe(process.stdout);
 
 process.on('exit', function(status) {

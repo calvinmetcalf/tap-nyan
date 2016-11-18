@@ -6,22 +6,16 @@ var windowWidth = isatty
       : tty.getWindowSize()[1]
     : 75;
 
-var args = process.argv.slice(2);
-var ansi = false;
-for(var i = 0; i < args.length && !ansi; i++) {
-  if(args[i] === '--ansi') { ansi = true; }
-}
-
 module.exports = NyanCat;
 
-function NyanCat(out) {
-  this.out = out;
-  this.stats = { suites: 0, tests: 0, passes: 0, pending: 0, failures: 0 };
-  var self = this;
+function NyanCat(out, ansi) {
   var width = windowWidth * 0.75 | 0;
 
-  this.stats;
-  this.rainbowColors = self.generateColors();
+  this.out = out;
+  this.ansi = !!ansi;
+
+  this.stats = { suites: 0, tests: 0, passes: 0, pending: 0, failures: 0 };
+  this.rainbowColors = this.generateColors();
   this.colorIndex = 0;
   this.numberOfLines = 4;
   this.trajectories = [[], [], [], []];
@@ -274,7 +268,7 @@ NyanCat.prototype.generateColors = function() {
 
 NyanCat.prototype.rainbowify = function(str) {
   var color = this.rainbowColors[this.colorIndex % this.rainbowColors.length];
-  var effect = ansi ? '1;' : '38;5;';
+  var effect = this.ansi ? '1;' : '38;5;';
   this.colorIndex += 1;
   return '\u001b[' + effect + color + 'm' + str + '\u001b[0m';
 };

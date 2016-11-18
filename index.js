@@ -5,11 +5,11 @@ var chalk = require('chalk');
 
 var Nyan = require('./bin/nyan');
 
-module.exports = function NyanReporter() {
+module.exports = function NyanReporter(ansi) {
   var out = PassThrough();
   var tap = parser();
   var stream = duplexer(tap, out);
-  var nyan = new Nyan(out);
+  var nyan = new Nyan(out, ansi);
 
   var currentTestName = '';
   var errors = [];
