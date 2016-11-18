@@ -242,7 +242,22 @@ NyanCat.prototype.cursorDown = function(n) {
  */
 
 NyanCat.prototype.generateColors = function() {
-  if(ansi) { return [31, 32, 33, 34, 35, 36]; }
+  if(this.ansi) {
+    return [
+      // Red
+      31, 31, 31,
+      // Yellow
+      33, 33, 33,
+      // green
+      32, 32, 32,
+      // Cyan
+      36, 36, 36,
+      // Blue
+      34, 34, 34,
+      // Magenta
+      35, 35, 35
+    ];
+  }
 
   var colors = [];
 
