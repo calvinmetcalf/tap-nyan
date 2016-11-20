@@ -1,4 +1,6 @@
+var supportsColor = require('supports-color');
 var tty = require('tty');
+
 var isatty = tty.isatty(1) && tty.isatty(2);
 var windowWidth = isatty
     ? process.stdout.getWindowSize
@@ -8,11 +10,11 @@ var windowWidth = isatty
 
 module.exports = NyanCat;
 
-function NyanCat(out, ansi) {
+function NyanCat(out) {
   var width = windowWidth * 0.75 | 0;
 
   this.out = out;
-  this.ansi = !!ansi;
+  this.ansi = supportsColor && !supportsColor.has256 && !supportsColor.has16m;
 
   this.stats = { suites: 0, tests: 0, passes: 0, pending: 0, failures: 0 };
   this.rainbowColors = this.generateColors();

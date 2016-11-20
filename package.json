@@ -24,6 +24,7 @@
   "dependencies": {
     "chalk": "^1.1.3",
     "duplexer2": "^0.1.4",
+    "supports-color": "^3.1.2",
     "tap-parser": "^3.0.3"
   },
   "bin": {
