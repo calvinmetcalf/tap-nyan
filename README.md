@@ -4,14 +4,6 @@ NYAN TAP output ~~inspired by~~ blatantly copied from Mocha's [nyan reporter](ht
 
 ![screen shot](http://i.imgur.com/T1eH156.png)
 
-**ANSI colors**
-
-![ANSI color](//i.imgur.com/gF1BCF2.png)
-
-By adding the `--asni` option to the CLI command the Nyan Cat trail will be displayed
-with the more limited and boring, but safe, ANSI color scheme for terminals with
-more limited color support *(cough! Windows CMD)*.
-
 ## Install
 
 ```
