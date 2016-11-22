@@ -1,6 +1,6 @@
 {
   "name": "tap-nyan",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Formatted TAP output like Mocha's spec reporter",
   "scripts": {
     "test": "node test/test.js | ./bin/cmd.js"
