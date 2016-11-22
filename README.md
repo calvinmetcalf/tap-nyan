@@ -4,6 +4,13 @@ NYAN TAP output ~~inspired by~~ blatantly copied from Mocha's [nyan reporter](ht
 
 ![screen shot](http://i.imgur.com/T1eH156.png)
 
+**Colors**
+
+The Nyan cat color scheme will automatically be downgraded to ANSI on terminals
+that doesn't support 265 colors.
+
+For CLI color options see the [supports-color](https://github.com/chalk/supports-color#info) module.
+
 ## Install
 
 ```
