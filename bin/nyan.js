@@ -91,6 +91,11 @@ NyanCat.prototype.fail = function() {
   this.draw();
 };
 
+NyanCat.prototype.pending = function() {
+  this.stats.pending++;
+  this.draw();
+};
+
 NyanCat.prototype.draw = function() {
   this.appendRainbow();
   this.drawScoreboard();
