@@ -23,7 +23,9 @@ module.exports = function NyanReporter() {
   });
 
   tap.on('assert', function(res) {
-    if(res.ok) {
+    if(res.skip) {
+      nyan.pending();
+    } else if(res.ok) {
       nyan.pass();
     } else {
       nyan.fail();
