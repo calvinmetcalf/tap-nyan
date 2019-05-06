@@ -19,7 +19,7 @@ npm install tap-nyan --save-dev
 
 ## Usage
 
-**packge.json**
+**package.json**
 
 ```json
 {
